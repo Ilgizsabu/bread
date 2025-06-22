@@ -1,3 +1,19 @@
+body::before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  content: "";
+
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url('./assets/photo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  opacity: 0.2;
+}
 table {
     width: 50%;
     margin: 25px 0;

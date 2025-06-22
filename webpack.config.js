@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -12,13 +13,15 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        type: 'asset',
+      },
+      {
         test: /\.(?:js|mjs|cjs)$/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              ['@babel/preset-env', { targets: 'defaults' }],
-            ],
+            presets: [['@babel/preset-env', { targets: 'defaults' }]],
           },
         },
       },
@@ -32,8 +35,16 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: './src/index.html',
-    scriptLoading: 'blocking',
-  }), new MiniCssExtractPlugin()],
+  optimization: {
+    minimizer: [
+    ],
+  },
+  plugins: [
+    new webpack.ProgressPlugin(),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      scriptLoading: 'blocking',
+    }),
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
+  ],
 };
